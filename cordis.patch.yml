@@ -1,0 +1,16 @@
+# dsh-opencode-usage bundle patch — one row mounts both halves:
+#
+#   host     lib/index.js   GET /api/opencode-usage over the OpenCode Go quota API
+#   browser  lib/client.js  the composer-dock chip (declared by package.json's
+#                           `dsh.client`, so the client-modules scan picks it up)
+#
+# Install:
+#   dsh plugin --profile web add github:ColorlessBoy/dsh-opencode-usage
+# then restart `dsh web` and refresh the page.
+#
+# Do NOT also insert this row by hand into
+# $DSH_HOME/profiles/web/cordis.patch.yml — two rows with the id `opencode-usage`
+# is a composition error. Pick one route: this bundle, or the manual row.
+- insert:
+    - id: opencode-usage
+      name: dsh-opencode-usage
