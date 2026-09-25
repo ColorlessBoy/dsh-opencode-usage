@@ -3,15 +3,103 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>dsh-opencode-usage — OpenCode Go 额度 pill for DeepSeek Harness</title>
-  <meta name="description" content="DeepSeek Harness (dsh) 插件：在 Web 输入框的统计行里显示 OpenCode Go 的 5 小时 / 每周 / 每月剩余额度。" />
+  <script>
+    (() => {
+      try {
+        const stored = localStorage.getItem('dsh-opencode-usage-theme')
+        const dark = stored === 'dark' || (stored === null && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light'
+      } catch {
+        document.documentElement.dataset.theme = 'light'
+      }
+    })()
+  </script>
+  <title>dsh-opencode-usage — DeepSeek Harness 的 OpenCode Go 额度插件</title>
+  <meta name="description" content="DeepSeek Harness (dsh) 插件：在 Web 输入框的统计行里显示 OpenCode Go 的 5 小时滚动 / 每周 / 每月剩余额度与重置倒计时，按当前 provider 自动显示和隐藏。" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://colorlessboy.github.io/dsh-opencode-usage/" />
+  <link rel="alternate" hreflang="zh-CN" href="https://colorlessboy.github.io/dsh-opencode-usage/" />
+  <link rel="alternate" hreflang="en" href="https://colorlessboy.github.io/dsh-opencode-usage/en/" />
+  <link rel="alternate" hreflang="x-default" href="https://colorlessboy.github.io/dsh-opencode-usage/" />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="style.css" />
-  <meta property="og:title" content="dsh-opencode-usage" />
-  <meta property="og:description" content="OpenCode Go 额度 pill for DeepSeek Harness" />
-  <meta property="og:image" content="screenshot.png" />
+  <meta name="theme-color" content="#f7f8f9" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0e0f11" media="(prefers-color-scheme: dark)" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="dsh-opencode-usage" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta property="og:url" content="https://colorlessboy.github.io/dsh-opencode-usage/" />
+  <meta property="og:title" content="dsh-opencode-usage — 在额度见底之前，先看见它" />
+  <meta property="og:description" content="OpenCode Go 的 5 小时 / 每周 / 每月剩余额度，化作 dsh Web 输入框统计行里最安静的一枚 pill。" />
+  <meta property="og:image" content="https://colorlessboy.github.io/dsh-opencode-usage/screenshot.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="dsh-opencode-usage — 在额度见底之前，先看见它" />
+  <meta name="twitter:description" content="DeepSeek Harness (dsh) 的 OpenCode Go 额度插件。" />
+  <meta name="twitter:image" content="https://colorlessboy.github.io/dsh-opencode-usage/screenshot.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "dsh-opencode-usage",
+    "description": "DeepSeek Harness (dsh) 插件：在 Web 输入框的统计行里显示 OpenCode Go 的 5 小时滚动 / 每周 / 每月剩余额度与重置倒计时。",
+    "url": "https://colorlessboy.github.io/dsh-opencode-usage/",
+    "codeRepository": "https://github.com/ColorlessBoy/dsh-opencode-usage",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "macOS, Linux, Windows",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "license": "https://github.com/ColorlessBoy/dsh-opencode-usage/blob/main/LICENSE",
+    "author": { "@type": "Person", "name": "ColorlessBoy" },
+    "keywords": "DeepSeek Harness, dsh, 插件, OpenCode Go, 额度, 余额, Token 用量, llm-pi-ai"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "DeepSeek Harness 里怎么看 OpenCode Go 剩余额度？",
+        "acceptedAnswer": { "@type": "Answer", "text": "安装本插件后，输入框下方的统计行会多一枚电池图标 pill，常驻显示 5 小时滚动、每周、每月的剩余百分比；点开面板可以看到每一档的重置倒计时。" }
+      },
+      {
+        "@type": "Question",
+        "name": "切到别的模型后还会显示吗？",
+        "acceptedAnswer": { "@type": "Answer", "text": "不会。插件按当前模型所属 provider 的 baseURL 判定，只有指向 opencode.ai/zen/go 的 route 才显示；切到其它 provider 时自动隐藏。" }
+      },
+      {
+        "@type": "Question",
+        "name": "需要自己配置 API Key 或端点吗？",
+        "acceptedAnswer": { "@type": "Answer", "text": "不需要。host 半边直接读 llm-pi-ai 里已经配好的 provider（baseURL / apiKeyEnv），API key 由 credentials 服务解析后只在 host 侧使用。" }
+      },
+      {
+        "@type": "Question",
+        "name": "怎么安装、装完要重启吗？",
+        "acceptedAnswer": { "@type": "Answer", "text": "一条命令 dsh plugin --profile web add github:ColorlessBoy/dsh-opencode-usage 安装，然后重启 dsh web 并刷新页面。仓库自带预构建的 lib/，安装时不需要构建授权。" }
+      },
+      {
+        "@type": "Question",
+        "name": "额度数据多久刷新一次？",
+        "acceptedAnswer": { "@type": "Answer", "text": "页面每 15 秒轮询一次同源端点；host 侧成功的读数缓存 30 秒、失败的缓存 10 秒，并合并并发的上游请求。" }
+      },
+      {
+        "@type": "Question",
+        "name": "只支持 OpenCode Go 吗？",
+        "acceptedAnswer": { "@type": "Answer", "text": "是。它专门读 OpenCode Go 订阅的官方额度接口（5 小时 / 每周 / 每月三档）。" }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
+  <nav class="controls" aria-label="页面设置">
+    <a class="control" href="en/" hreflang="en" lang="en" title="Switch to English">EN</a>
+    <button id="theme" class="control" type="button" aria-label="切换深色 / 浅色模式" title="切换深色 / 浅色模式">
+      <svg class="icon-moon" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 9.8A5.8 5.8 0 0 1 6.2 2.5a5.8 5.8 0 1 0 7.3 7.3Z" /></svg>
+      <svg class="icon-sun" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3.2" /><path d="M8 1v1.6M8 13.4V15M1 8h1.6M13.4 8H15M3 3l1.1 1.1M11.9 11.9 13 13M13 3l-1.1 1.1M4.1 11.9 3 13" /></svg>
+    </button>
+  </nav>
+
   <main>
     <header class="hero">
       <p class="eyebrow">DeepSeek Harness · dsh bundle</p>
@@ -33,7 +121,7 @@
     </header>
 
     <section class="shot">
-      <img src="screenshot.png" alt="输入框统计行里的 OpenCode Go 额度 pill 与展开的详情面板" />
+      <img src="screenshot.png" width="2348" height="366" alt="DeepSeek Harness 输入框统计行里的 OpenCode Go 额度 pill 与展开的详情面板，显示 5 小时 / 每周 / 每月剩余百分比和重置倒计时" />
     </section>
 
     <section class="why-section">
@@ -46,6 +134,25 @@
         <li><strong>密钥不出 host</strong>：浏览器只访问同源端点，API key 永不进入页面。</li>
         <li><strong>克制的同类</strong>：不抢你的工作流，只补上你看不见的那一格电。</li>
       </ul>
+    </section>
+
+    <section class="compare-section">
+      <h2>和同类插件的不同</h2>
+      <div class="compare">
+        <table>
+          <thead>
+            <tr><th>常见同类做法</th><th>dsh-opencode-usage</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>再造一个常驻悬浮卡 / 圆环 / 呼吸灯，占一块新位置</td><td>复用输入框已有的统计行，只多一枚 pill</td></tr>
+            <tr><td>自带一套玻璃、渐变或霓虹皮肤</td><td>与内置「Token 用量」同一套面板 token 与皮肤</td></tr>
+            <tr><td>写死某个 key 引用名，或让你在面板里填 key / cookie</td><td>自动跟随 <code>llm-pi-ai</code> 已配的 provider 与 <code>apiKeyEnv</code>，多账号 route 各自生效</td></tr>
+            <tr><td>显示「已用」，或给一个来路不明的孤立百分比</td><td>三档一律剩余量，chip / 面板 / 无障碍名称口径一致</td></tr>
+            <tr><td>接管 provider 路由、参与请求甚至计费</td><td>只读展示，不碰你的请求与账单</td></tr>
+            <tr><td>需要构建、构建授权或额外依赖</td><td>仓库自带 <code>lib/</code>，<code>dsh plugin add</code> 秒装即用</td></tr>
+          </tbody>
+        </table>
+      </div>
     </section>
 
     <section class="features">
@@ -81,6 +188,36 @@
       <h2>取向</h2>
       <p>不接管 provider 路由、不复制 API key、不新增设置页或常驻悬浮卡：复用既有的 <code>llm-pi-ai</code> 配置与 credentials 凭据，只多一枚安静的 pill。</p>
     </section>
+
+    <section class="faq">
+      <h2>常见问题</h2>
+      <div class="faq-grid">
+        <article>
+          <h3>DeepSeek Harness 里怎么看 OpenCode Go 剩余额度？</h3>
+          <p>安装本插件后，输入框下方的统计行会多一枚电池图标 pill，常驻显示 5 小时滚动、每周、每月的剩余百分比；点开面板可以看到每一档的重置倒计时。</p>
+        </article>
+        <article>
+          <h3>切到别的模型后还会显示吗？</h3>
+          <p>不会。插件按当前模型所属 provider 的 <code>baseURL</code> 判定，只有指向 <code>opencode.ai/zen/go</code> 的 route 才显示；切到 DeepSeek 官方、OpenRouter 等其它 provider 时自动隐藏，不会误报。</p>
+        </article>
+        <article>
+          <h3>需要自己配置 API Key 或端点吗？</h3>
+          <p>不需要。host 半边直接读 <code>llm-pi-ai</code> 里已经配好的 provider（<code>baseURL</code> / <code>apiKeyEnv</code>），API key 由 credentials 服务解析后只在 host 侧使用，浏览器拿不到。</p>
+        </article>
+        <article>
+          <h3>怎么安装、装完要重启吗？</h3>
+          <p>一条命令安装，然后重启 <code>dsh web</code> 并刷新页面。仓库自带预构建的 <code>lib/</code>，安装时不需要构建授权。</p>
+        </article>
+        <article>
+          <h3>额度数据多久刷新一次？</h3>
+          <p>页面每 15 秒轮询一次同源端点；host 侧成功的读数缓存 30 秒、失败的缓存 10 秒，并合并并发的上游请求，不会频繁打扰额度接口。</p>
+        </article>
+        <article>
+          <h3>只支持 OpenCode Go 吗？</h3>
+          <p>是。它专门读 OpenCode Go 订阅的官方额度接口（5 小时 / 每周 / 每月三档）；其它 provider 的余额或配额不在它的范围内。</p>
+        </article>
+      </div>
+    </section>
   </main>
 
   <footer>
@@ -103,6 +240,18 @@
       }
       setTimeout(() => { button.textContent = '复制' }, 1500)
     })
+
+    const themeButton = document.getElementById('theme')
+    const applyTheme = (dark) => {
+      document.documentElement.dataset.theme = dark ? 'dark' : 'light'
+      themeButton.setAttribute('aria-pressed', String(dark))
+    }
+    themeButton.addEventListener('click', () => {
+      const dark = document.documentElement.dataset.theme !== 'dark'
+      try { localStorage.setItem('dsh-opencode-usage-theme', dark ? 'dark' : 'light') } catch { /* storage disabled */ }
+      applyTheme(dark)
+    })
+    applyTheme(document.documentElement.dataset.theme === 'dark')
   </script>
 </body>
 </html>

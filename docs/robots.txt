@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://colorlessboy.github.io/dsh-opencode-usage/sitemap.xml

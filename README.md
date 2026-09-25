@@ -1,5 +1,6 @@
 # dsh-opencode-usage
 
+[![官网 · Website](https://img.shields.io/badge/website-colorlessboy.github.io-0f9d6e)](https://colorlessboy.github.io/dsh-opencode-usage/)
 [![DeepSeek Harness plugin](https://img.shields.io/badge/DeepSeek%20Harness-plugin-0f9d6e)](https://github.com/deepseek-ai/deepseek-harness)
 [![topic: dsh-plugin](https://img.shields.io/badge/topic-dsh--plugin-0f9d6e)](https://github.com/topics/dsh-plugin)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
@@ -8,7 +9,7 @@
 > OpenCode Go 的 5 小时滚动 / 每周 / 每月剩余额度，化作 dsh Web 输入框统计行里最安静的
 > 一枚 pill——一眼可见，细节点开才有。
 
-[官网](https://colorlessboy.github.io/dsh-opencode-usage/) ·
+**官网（中英文）**：<https://colorlessboy.github.io/dsh-opencode-usage/> ·
 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) 插件：在输入框下方的
 开发者小字里、内置「上下文已用」pill 之后，多显示一枚 **OpenCode Go 额度** pill。
 
@@ -26,6 +27,19 @@
 - **零打扰** —— 不加悬浮窗、不接管路由；切到非 Go 模型自动隐身，不误报。
 - **密钥不出 host** —— 浏览器只访问同源端点，API key 永不进入页面。
 - **克制的同类** —— 不抢你的工作流，只补上你看不见的那一格电。
+
+## 和同类插件的不同
+
+dsh 的用量类插件很多，取舍差别主要在下面这几处：
+
+| 常见同类做法 | 本插件 |
+|---|---|
+| 再造一个常驻悬浮卡 / 圆环 / 呼吸灯，占一块新位置 | 复用输入框已有的统计行，只多一枚 pill |
+| 自带一套玻璃、渐变或霓虹皮肤 | 与内置「Token 用量」同一套面板 token 与皮肤 |
+| 写死某个 key 引用名，或让你在面板里填 key / cookie | 跟随 `llm-pi-ai` 已配的 provider 与 `apiKeyEnv`，多账号 route 各自生效 |
+| 显示「已用」，或给一个来路不明的孤立百分比 | 三档一律剩余量，chip / 面板 / 无障碍名称口径一致 |
+| 接管 provider 路由、参与请求甚至计费 | 只读展示，不碰你的请求与账单 |
+| 需要构建、构建授权或额外依赖 | 仓库自带 `lib/`，`dsh plugin add` 秒装即用 |
 
 ## 特性
 
