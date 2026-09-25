@@ -1,12 +1,18 @@
 # dsh-opencode-usage
 
 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) (dsh) 插件：在 Web GUI
-输入框下方的开发者小字里，紧挨内置的「会话统计 / Token 用量」两枚 pill，多显示一枚
+输入框下方的开发者小字里、内置「上下文已用」pill 之后，多显示一枚
 **OpenCode Go 额度** pill。
+
+![OpenCode Go 额度 pill 与展开的详情面板](docs/screenshot.png)
 
 ```
 10 轮 89 步 · 42 tok/s  │  1.2M · 缓存命中 45%  │  24%  │  🔋 剩余 5h 80% │ 周 84% │ 月 42%
 ```
+
+和同类用量插件的取向不同：它不接管 provider 路由、不复制 API key、不新增设置页或常驻悬浮
+卡，只复用既有的 `llm-pi-ai` 配置与 credentials 凭据，在统计行里多一枚安静的 pill——
+余量一眼可见，细节点开才有。
 
 ## 特性
 
