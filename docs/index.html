@@ -89,45 +89,45 @@
         </svg>
         dsh-opencode-usage
       </h1>
-      <p class="tagline">在额度见底之前，先看见它。</p>
-      <p class="sub">OpenCode Go 的 5 小时滚动 / 每周 / 每月剩余额度，化作 dsh Web 输入框统计行里最安静的一枚 pill——一眼可见，细节点开才有。</p>
+      <p class="tagline" data-i18n="tagline">在额度见底之前，先看见它。</p>
+      <p class="sub" data-i18n="sub">OpenCode Go 的 5 小时滚动 / 每周 / 每月剩余额度，化作 dsh Web 输入框统计行里最安静的一枚 pill——一眼可见，细节点开才有。</p>
       <div class="actions">
         <a class="button primary" href="https://github.com/ColorlessBoy/dsh-opencode-usage">GitHub</a>
-        <a class="button" href="#install">安装</a>
+        <a class="button" href="#install" data-i18n="ctaInstall">安装</a>
         <a class="button" href="https://github.com/deepseek-ai/deepseek-harness">DeepSeek Harness</a>
       </div>
     </header>
 
     <section class="shot">
-      <img src="screenshot.png" alt="DeepSeek Harness 输入框统计行里的 OpenCode Go 额度 pill 与展开的详情面板，显示 5 小时 / 每周 / 每月剩余百分比和重置倒计时" />
+      <img src="screenshot.png" data-i18n-alt="shotAlt" alt="DeepSeek Harness 输入框统计行里的 OpenCode Go 额度 pill 与展开的详情面板，显示 5 小时 / 每周 / 每月剩余百分比和重置倒计时" />
     </section>
 
     <section class="why-section">
-      <h2>为什么选它</h2>
+      <h2 data-i18n="whyHeading">为什么选它</h2>
       <ul class="why">
-        <li><strong>一眼可见</strong>：三档剩余百分比常驻统计行，展开即详情。</li>
-        <li><strong>零配置</strong>：自动跟随 <code>llm-pi-ai</code> 里已配好的 provider，不复制 key、不新增设置页。</li>
-        <li><strong>零构建</strong>：仓库自带可运行的 <code>lib/</code>，<code>dsh plugin add</code> 秒装即用。</li>
-        <li><strong>零打扰</strong>：不加悬浮窗、不接管路由；切到非 Go 模型自动隐身。</li>
-        <li><strong>密钥不出 host</strong>：浏览器只访问同源端点，API key 永不进入页面。</li>
-        <li><strong>克制的同类</strong>：不抢你的工作流，只补上你看不见的那一格电。</li>
+        <li data-i18n="why1"><strong>一眼可见</strong>：三档剩余百分比常驻统计行，展开即详情。</li>
+        <li data-i18n="why2"><strong>零配置</strong>：自动跟随 <code>llm-pi-ai</code> 里已配好的 provider，不复制 key、不新增设置页。</li>
+        <li data-i18n="why3"><strong>零构建</strong>：仓库自带可运行的 <code>lib/</code>，<code>dsh plugin add</code> 秒装即用。</li>
+        <li data-i18n="why4"><strong>零打扰</strong>：不加悬浮窗、不接管路由；切到非 Go 模型自动隐身。</li>
+        <li data-i18n="why5"><strong>密钥不出 host</strong>：浏览器只访问同源端点，API key 永不进入页面。</li>
+        <li data-i18n="why6"><strong>克制的同类</strong>：不抢你的工作流，只补上你看不见的那一格电。</li>
       </ul>
     </section>
 
     <section class="compare-section">
-      <h2>和同类插件的不同</h2>
+      <h2 data-i18n="compareHeading">和同类插件的不同</h2>
       <div class="compare">
         <table>
           <thead>
-            <tr><th>常见同类做法</th><th>dsh-opencode-usage</th></tr>
+            <tr><th data-i18n="compareCommon">常见同类做法</th><th>dsh-opencode-usage</th></tr>
           </thead>
           <tbody>
-            <tr><td>再造一个常驻悬浮卡 / 圆环 / 呼吸灯，占一块新位置</td><td>复用输入框已有的统计行，只多一枚 pill</td></tr>
-            <tr><td>自带一套玻璃、渐变或霓虹皮肤</td><td>与内置「Token 用量」同一套面板 token 与皮肤</td></tr>
-            <tr><td>写死某个 key 引用名，或让你在面板里填 key / cookie</td><td>自动跟随 <code>llm-pi-ai</code> 已配的 provider 与 <code>apiKeyEnv</code>，多账号 route 各自生效</td></tr>
-            <tr><td>显示「已用」，或给一个来路不明的孤立百分比</td><td>三档一律剩余量，chip / 面板 / 无障碍名称口径一致</td></tr>
-            <tr><td>接管 provider 路由、参与请求甚至计费</td><td>只读展示，不碰你的请求与账单</td></tr>
-            <tr><td>需要构建、构建授权或额外依赖</td><td>仓库自带 <code>lib/</code>，<code>dsh plugin add</code> 秒装即用</td></tr>
+            <tr><td data-i18n="cmp1a">再造一个常驻悬浮卡 / 圆环 / 呼吸灯，占一块新位置</td><td data-i18n="cmp1b">复用输入框已有的统计行，只多一枚 pill</td></tr>
+            <tr><td data-i18n="cmp2a">自带一套玻璃、渐变或霓虹皮肤</td><td data-i18n="cmp2b">与内置「Token 用量」同一套面板 token 与皮肤</td></tr>
+            <tr><td data-i18n="cmp3a">写死某个 key 引用名，或让你在面板里填 key / cookie</td><td data-i18n="cmp3b">跟随 <code>llm-pi-ai</code> 已配的 provider 与 <code>apiKeyEnv</code>，多账号 route 各自生效</td></tr>
+            <tr><td data-i18n="cmp4a">显示「已用」，或给一个来路不明的孤立百分比</td><td data-i18n="cmp4b">三档一律剩余量，chip / 面板 / 无障碍名称口径一致</td></tr>
+            <tr><td data-i18n="cmp5a">接管 provider 路由、参与请求甚至计费</td><td data-i18n="cmp5b">只读展示，不碰你的请求与账单</td></tr>
+            <tr><td data-i18n="cmp6a">需要构建、构建授权或额外依赖</td><td data-i18n="cmp6b">仓库自带 <code>lib/</code>，<code>dsh plugin add</code> 秒装即用</td></tr>
           </tbody>
         </table>
       </div>
@@ -135,88 +135,171 @@
 
     <section class="features">
       <article>
-        <h3>按 provider 判定</h3>
-        <p>只有当前模型所属 provider 的 <code>baseURL</code> 指向 OpenCode Zen Go 时才显示；切到其它 provider 自动隐藏。</p>
+        <h3 data-i18n="feat1t">按 provider 判定</h3>
+        <p data-i18n="feat1p">只有当前模型所属 provider 的 <code>baseURL</code> 指向 OpenCode Zen Go 时才显示；切到其它 provider 自动隐藏。</p>
       </article>
       <article>
-        <h3>只谈剩余量</h3>
-        <p>上游接口给的是已用百分比，host 半边归一化成剩余量；chip、详情面板、无障碍名称三处措辞一致。</p>
+        <h3 data-i18n="feat2t">只谈剩余量</h3>
+        <p data-i18n="feat2p">上游接口给的是已用百分比，host 半边归一化成剩余量；chip、详情面板、无障碍名称三处措辞一致。</p>
       </article>
       <article>
-        <h3>点击展开</h3>
-        <p>与内置「Token 用量」同一套面板皮肤，逐档列出剩余百分比与重置倒计时，标题给出最紧的一档。</p>
+        <h3 data-i18n="feat3t">点击展开</h3>
+        <p data-i18n="feat3p">与内置「Token 用量」同一套面板皮肤，逐档列出剩余百分比与重置倒计时，标题给出最紧的一档。</p>
       </article>
       <article>
-        <h3>密钥不出 host</h3>
-        <p>浏览器只访问同源 <code>/api/opencode-usage</code>；API key 由 host 侧 credentials 服务按 <code>apiKeyEnv</code> 解析。</p>
+        <h3 data-i18n="feat4t">密钥不出 host</h3>
+        <p data-i18n="feat4p">浏览器只访问同源 <code>/api/opencode-usage</code>；API key 由 host 侧 credentials 服务按 <code>apiKeyEnv</code> 解析。</p>
       </article>
     </section>
 
     <section class="install" id="install">
-      <h2>安装</h2>
-      <p>作为 bundle 装进 web profile，仓库自带可运行的 <code>lib/</code>，安装不需要构建授权：</p>
+      <h2 data-i18n="installHeading">安装</h2>
+      <p data-i18n="installIntro">作为 bundle 装进 web profile，仓库自带可运行的 <code>lib/</code>，安装不需要构建授权：</p>
       <div class="code">
         <pre><code id="cmd">dsh plugin --profile web add github:ColorlessBoy/dsh-opencode-usage</code></pre>
-        <button id="copy" type="button">复制</button>
+        <button id="copy" type="button" data-i18n="copyIdle">复制</button>
       </div>
-      <p class="hint">装好后重启 <code>dsh web</code> 并刷新页面。不启动也能先验证层已组合：<code>dsh --profile web --dump-config</code> 应出现 <code># == dsh-opencode-usage</code>。</p>
+      <p class="hint" data-i18n="installHint">装好后重启 <code>dsh web</code> 并刷新页面。不启动也能先验证层已组合：<code>dsh --profile web --dump-config</code> 应出现 <code># == dsh-opencode-usage</code>。</p>
     </section>
 
     <section class="notes">
-      <h2>取向</h2>
-      <p>不接管 provider 路由、不复制 API key、不新增设置页或常驻悬浮卡：复用既有的 <code>llm-pi-ai</code> 配置与 credentials 凭据，只多一枚安静的 pill。</p>
+      <h2 data-i18n="notesHeading">取向</h2>
+      <p data-i18n="notesBody">不接管 provider 路由、不复制 API key、不新增设置页或常驻悬浮卡：复用既有的 <code>llm-pi-ai</code> 配置与 credentials 凭据，只多一枚安静的 pill。</p>
     </section>
 
     <section class="faq">
-      <h2>常见问题</h2>
+      <h2 data-i18n="faqHeading">常见问题</h2>
       <div class="faq-grid">
         <article>
-          <h3>DeepSeek Harness 里怎么看 OpenCode Go 剩余额度？</h3>
-          <p>安装本插件后，输入框下方的统计行会多一枚电池图标 pill，常驻显示 5 小时滚动、每周、每月的剩余百分比；点开面板可以看到每一档的重置倒计时。</p>
+          <h3 data-i18n="faq1q">DeepSeek Harness 里怎么看 OpenCode Go 剩余额度？</h3>
+          <p data-i18n="faq1a">安装本插件后，输入框下方的统计行会多一枚电池图标 pill，常驻显示 5 小时滚动、每周、每月的剩余百分比；点开面板可以看到每一档的重置倒计时。</p>
         </article>
         <article>
-          <h3>切到别的模型后还会显示吗？</h3>
-          <p>不会。插件按当前模型所属 provider 的 <code>baseURL</code> 判定，只有指向 <code>opencode.ai/zen/go</code> 的 route 才显示；切到 DeepSeek 官方、OpenRouter 等其它 provider 时自动隐藏，不会误报。</p>
+          <h3 data-i18n="faq2q">切到别的模型后还会显示吗？</h3>
+          <p data-i18n="faq2a">不会。插件按当前模型所属 provider 的 <code>baseURL</code> 判定，只有指向 <code>opencode.ai/zen/go</code> 的 route 才显示；切到 DeepSeek 官方、OpenRouter 等其它 provider 时自动隐藏，不会误报。</p>
         </article>
         <article>
-          <h3>需要自己配置 API Key 或端点吗？</h3>
-          <p>不需要。host 半边直接读 <code>llm-pi-ai</code> 里已经配好的 provider（<code>baseURL</code> / <code>apiKeyEnv</code>），API key 由 credentials 服务解析后只在 host 侧使用，浏览器拿不到。</p>
+          <h3 data-i18n="faq3q">需要自己配置 API Key 或端点吗？</h3>
+          <p data-i18n="faq3a">不需要。host 半边直接读 <code>llm-pi-ai</code> 里已经配好的 provider（<code>baseURL</code> / <code>apiKeyEnv</code>），API key 由 credentials 服务解析后只在 host 侧使用，浏览器拿不到。</p>
         </article>
         <article>
-          <h3>怎么安装、装完要重启吗？</h3>
-          <p>一条命令安装，然后重启 <code>dsh web</code> 并刷新页面。仓库自带预构建的 <code>lib/</code>，安装时不需要构建授权。</p>
+          <h3 data-i18n="faq4q">怎么安装、装完要重启吗？</h3>
+          <p data-i18n="faq4a">一条命令安装，然后重启 <code>dsh web</code> 并刷新页面。仓库自带预构建的 <code>lib/</code>，安装时不需要构建授权。</p>
         </article>
         <article>
-          <h3>额度数据多久刷新一次？</h3>
-          <p>页面每 15 秒轮询一次同源端点；host 侧成功的读数缓存 30 秒、失败的缓存 10 秒，并合并并发的上游请求，不会频繁打扰额度接口。</p>
+          <h3 data-i18n="faq5q">额度数据多久刷新一次？</h3>
+          <p data-i18n="faq5a">页面每 15 秒轮询一次同源端点；host 侧成功的读数缓存 30 秒、失败的缓存 10 秒，并合并并发的上游请求，不会频繁打扰额度接口。</p>
         </article>
         <article>
-          <h3>只支持 OpenCode Go 吗？</h3>
-          <p>是。它专门读 OpenCode Go 订阅的官方额度接口（5 小时 / 每周 / 每月三档）；其它 provider 的余额或配额不在它的范围内。</p>
+          <h3 data-i18n="faq6q">只支持 OpenCode Go 吗？</h3>
+          <p data-i18n="faq6a">是。它专门读 OpenCode Go 订阅的官方额度接口（5 小时 / 每周 / 每月三档）；其它 provider 的余额或配额不在它的范围内。</p>
         </article>
       </div>
     </section>
   </main>
 
   <footer>
-    <span>MIT License</span>
+    <span data-i18n="footerLicense">MIT License</span>
     <span>·</span>
-    <a href="https://github.com/ColorlessBoy/dsh-opencode-usage">源码与 README</a>
+    <a href="https://github.com/ColorlessBoy/dsh-opencode-usage" data-i18n="footerSource">源码与 README</a>
     <span>·</span>
-    <span>非官方社区插件</span>
+    <span data-i18n="footerUnofficial">非官方社区插件</span>
   </footer>
 
   <script>
+    // The page follows the browser language: a zh-* UI keeps the Chinese copy
+    // above; every other language swaps to English. No toggle, no redirect.
+    const EN = {
+      title: 'dsh-opencode-usage — OpenCode Go quota plugin for DeepSeek Harness',
+      description: 'DeepSeek Harness (dsh) plugin: shows OpenCode Go\'s 5-hour rolling, weekly and monthly remaining quota with reset countdowns in the Web composer stats line, and hides itself for other providers.',
+      tagline: 'See it before it runs out.',
+      sub: 'OpenCode Go\'s 5-hour rolling / weekly / monthly remaining quota, as the quietest pill in the dsh Web composer stats line — visible at a glance, details on click.',
+      ctaInstall: 'Install',
+      shotAlt: 'The OpenCode Go quota pill in the DeepSeek Harness composer stats line with its detail panel open, showing 5-hour, weekly and monthly remaining percentages and reset countdowns',
+      whyHeading: 'Why this one',
+      why1: '<strong>At a glance</strong>: three remaining shares live in the stats line; details open on click.',
+      why2: '<strong>Zero config</strong>: follows the provider you already configured in <code>llm-pi-ai</code> — no key copying, no new settings page.',
+      why3: '<strong>Zero build</strong>: the repo ships a runnable <code>lib/</code>; <code>dsh plugin add</code> and you\'re done.',
+      why4: '<strong>Zero noise</strong>: no floating card, no route takeover; it hides itself on non-Go models.',
+      why5: '<strong>Key never leaves the host</strong>: the browser only calls a same-origin endpoint.',
+      why6: '<strong>The restrained one</strong>: it doesn\'t fight your workflow, it just shows the battery bar you couldn\'t see.',
+      compareHeading: 'How it differs',
+      compareCommon: 'Common approach',
+      cmp1a: 'Another always-on floating card / ring / breathing light, claiming new screen space',
+      cmp1b: 'Reuses the existing stats line; adds exactly one pill',
+      cmp2a: 'Its own glass, gradient or neon skin',
+      cmp2b: 'The same panel tokens and skin as the built-in Token usage',
+      cmp3a: 'A hard-coded key ref, or asking you to paste a key / cookie',
+      cmp3b: 'Follows the provider and <code>apiKeyEnv</code> already configured in <code>llm-pi-ai</code>; multi-account routes each work',
+      cmp4a: 'Shows "used", or a lone percentage with no context',
+      cmp4b: 'Always remaining shares; pill, panel and accessible name agree',
+      cmp5a: 'Takes over the provider route, joins requests or billing',
+      cmp5b: 'Read-only display; it never touches your requests or bill',
+      cmp6a: 'Needs a build, build approval or extra dependencies',
+      cmp6b: 'Ships <code>lib/</code>; <code>dsh plugin add</code> just works',
+      feat1t: 'Provider-aware',
+      feat1p: 'Shown only when the current model\'s provider <code>baseURL</code> points at OpenCode Zen Go; switching to any other provider hides it automatically.',
+      feat2t: 'Remaining only',
+      feat2p: 'The upstream API reports used percent; the host normalizes it to remaining, consistently in the pill, the panel and the accessible name.',
+      feat3t: 'Click to expand',
+      feat3p: 'Same panel skin as the built-in Token usage: each window\'s remaining share and reset countdown, with the tightest window in the title.',
+      feat4t: 'Keys stay on the host',
+      feat4p: 'The browser only calls same-origin <code>/api/opencode-usage</code>; the API key is resolved by the host credentials service via <code>apiKeyEnv</code>.',
+      installHeading: 'Install',
+      installIntro: 'As a bundle in the web profile. The repo ships a runnable <code>lib/</code>, so install needs no build approval:',
+      copyIdle: 'Copy',
+      copyDone: 'Copied',
+      copyFail: 'Copy failed',
+      installHint: 'Restart <code>dsh web</code> and refresh the page. To verify composition without booting: <code>dsh --profile web --dump-config</code> should show <code># == dsh-opencode-usage</code>.',
+      notesHeading: 'Orientation',
+      notesBody: 'No route takeover, no key copying, no new settings page or floating card: it reuses your existing <code>llm-pi-ai</code> config and credentials, and adds one quiet pill.',
+      faqHeading: 'FAQ',
+      faq1q: 'How do I see my OpenCode Go quota in DeepSeek Harness?',
+      faq1a: 'Install the plugin: the composer stats line gains a battery pill with the 5-hour rolling, weekly and monthly remaining shares; open it for each window\'s reset countdown.',
+      faq2q: 'Does it show quota for other providers?',
+      faq2a: 'No. It keys off the current model\'s provider <code>baseURL</code> and only appears for routes that point at <code>opencode.ai/zen/go</code>; other providers hide it automatically.',
+      faq3q: 'Do I need to configure an API key or endpoint?',
+      faq3a: 'No. The host half reads the provider already configured in <code>llm-pi-ai</code> (<code>baseURL</code> / <code>apiKeyEnv</code>); the API key is resolved by the credentials service and never reaches the browser.',
+      faq4q: 'How do I install it, and do I need to restart?',
+      faq4a: 'Run the install command, then restart <code>dsh web</code> and refresh the page. The repo ships a prebuilt <code>lib/</code>, so no build approval is required.',
+      faq5q: 'How often does the quota refresh?',
+      faq5a: 'The page polls the same-origin endpoint every 15 seconds; the host caches successful reads for 30 seconds and failures for 10 seconds and merges concurrent upstream requests.',
+      faq6q: 'Does it support only OpenCode Go?',
+      faq6a: 'Yes. It reads the official OpenCode Go quota API (5-hour rolling, weekly, monthly) and nothing else.',
+      footerLicense: 'MIT License',
+      footerSource: 'Source & README',
+      footerUnofficial: 'Unofficial community plugin',
+    }
+
+    const chinese = (navigator.language || '').toLowerCase().startsWith('zh')
+    if (!chinese) {
+      document.documentElement.lang = 'en'
+      document.title = EN.title
+      const description = document.querySelector('meta[name="description"]')
+      if (description !== null) description.setAttribute('content', EN.description)
+      for (const element of document.querySelectorAll('[data-i18n]')) {
+        const key = element.dataset.i18n
+        if (EN[key] !== undefined) element.innerHTML = EN[key]
+      }
+      for (const element of document.querySelectorAll('[data-i18n-alt]')) {
+        const key = element.dataset.i18nAlt
+        if (EN[key] !== undefined) element.setAttribute('alt', EN[key])
+      }
+    }
+
+    const labels = chinese
+      ? { idle: '复制', done: '已复制', fail: '复制失败' }
+      : { idle: EN.copyIdle, done: EN.copyDone, fail: EN.copyFail }
     const button = document.getElementById('copy')
     button.addEventListener('click', async () => {
       const command = document.getElementById('cmd').textContent
       try {
         await navigator.clipboard.writeText(command)
-        button.textContent = '已复制'
+        button.textContent = labels.done
       } catch {
-        button.textContent = '复制失败'
+        button.textContent = labels.fail
       }
-      setTimeout(() => { button.textContent = '复制' }, 1500)
+      setTimeout(() => { button.textContent = labels.idle }, 1500)
     })
   </script>
 </body>
