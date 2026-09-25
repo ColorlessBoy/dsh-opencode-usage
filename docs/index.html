@@ -3,24 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <script>
-    (() => {
-      try {
-        const stored = localStorage.getItem('dsh-opencode-usage-theme')
-        const dark = stored === 'dark' || (stored === null && window.matchMedia('(prefers-color-scheme: dark)').matches)
-        document.documentElement.dataset.theme = dark ? 'dark' : 'light'
-      } catch {
-        document.documentElement.dataset.theme = 'light'
-      }
-    })()
-  </script>
   <title>dsh-opencode-usage — DeepSeek Harness 的 OpenCode Go 额度插件</title>
   <meta name="description" content="DeepSeek Harness (dsh) 插件：在 Web 输入框的统计行里显示 OpenCode Go 的 5 小时滚动 / 每周 / 每月剩余额度与重置倒计时，按当前 provider 自动显示和隐藏。" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://colorlessboy.github.io/dsh-opencode-usage/" />
-  <link rel="alternate" hreflang="zh-CN" href="https://colorlessboy.github.io/dsh-opencode-usage/" />
-  <link rel="alternate" hreflang="en" href="https://colorlessboy.github.io/dsh-opencode-usage/en/" />
-  <link rel="alternate" hreflang="x-default" href="https://colorlessboy.github.io/dsh-opencode-usage/" />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="style.css" />
   <meta name="theme-color" content="#f7f8f9" media="(prefers-color-scheme: light)" />
@@ -92,14 +78,6 @@
   </script>
 </head>
 <body>
-  <nav class="controls" aria-label="页面设置">
-    <a class="control" href="en/" hreflang="en" lang="en" title="Switch to English">EN</a>
-    <button id="theme" class="control" type="button" aria-label="切换深色 / 浅色模式" title="切换深色 / 浅色模式">
-      <svg class="icon-moon" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 9.8A5.8 5.8 0 0 1 6.2 2.5a5.8 5.8 0 1 0 7.3 7.3Z" /></svg>
-      <svg class="icon-sun" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3.2" /><path d="M8 1v1.6M8 13.4V15M1 8h1.6M13.4 8H15M3 3l1.1 1.1M11.9 11.9 13 13M13 3l-1.1 1.1M4.1 11.9 3 13" /></svg>
-    </button>
-  </nav>
-
   <main>
     <header class="hero">
       <p class="eyebrow">DeepSeek Harness · dsh bundle</p>
@@ -121,7 +99,7 @@
     </header>
 
     <section class="shot">
-      <img src="screenshot.png" width="2348" height="366" alt="DeepSeek Harness 输入框统计行里的 OpenCode Go 额度 pill 与展开的详情面板，显示 5 小时 / 每周 / 每月剩余百分比和重置倒计时" />
+      <img src="screenshot.png" alt="DeepSeek Harness 输入框统计行里的 OpenCode Go 额度 pill 与展开的详情面板，显示 5 小时 / 每周 / 每月剩余百分比和重置倒计时" />
     </section>
 
     <section class="why-section">
@@ -240,18 +218,6 @@
       }
       setTimeout(() => { button.textContent = '复制' }, 1500)
     })
-
-    const themeButton = document.getElementById('theme')
-    const applyTheme = (dark) => {
-      document.documentElement.dataset.theme = dark ? 'dark' : 'light'
-      themeButton.setAttribute('aria-pressed', String(dark))
-    }
-    themeButton.addEventListener('click', () => {
-      const dark = document.documentElement.dataset.theme !== 'dark'
-      try { localStorage.setItem('dsh-opencode-usage-theme', dark ? 'dark' : 'light') } catch { /* storage disabled */ }
-      applyTheme(dark)
-    })
-    applyTheme(document.documentElement.dataset.theme === 'dark')
   </script>
 </body>
 </html>

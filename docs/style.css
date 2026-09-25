@@ -12,23 +12,8 @@
   --radius: 16px;
 }
 
-/* Dark tokens apply for the explicit switch, and as the no-JS fallback when the
-   system asks for dark and no choice was stored. */
-:root[data-theme='dark'] {
-  --bg: #0e0f11;
-  --fg: #f2f3f5;
-  --muted: #9aa2ad;
-  --card: #17181b;
-  --border: #2a2c31;
-  --code-bg: #1c1d21;
-  --code-fg: #e8eaed;
-  --accent: #35c793;
-  --accent-soft: rgba(53, 199, 147, 0.14);
-  --shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
-}
-
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) {
+  :root {
     --bg: #0e0f11;
     --fg: #f2f3f5;
     --muted: #9aa2ad;
@@ -70,57 +55,6 @@ code {
   background: var(--accent-soft);
   padding: 2px 6px;
   border-radius: 6px;
-}
-
-.controls {
-  position: fixed;
-  top: 18px;
-  right: 18px;
-  z-index: 10;
-  display: flex;
-  gap: 10px;
-}
-
-.control {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  min-width: 38px;
-  height: 36px;
-  padding: 0 13px;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  background: var(--card);
-  color: var(--fg);
-  font: inherit;
-  font-size: 13px;
-  font-weight: 600;
-  text-decoration: none;
-  cursor: pointer;
-  opacity: 0.88;
-  transition: opacity 0.15s ease, transform 0.15s ease;
-}
-
-.control:hover { opacity: 1; transform: translateY(-1px); }
-
-.control svg {
-  width: 16px;
-  height: 16px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.5;
-}
-
-.icon-sun { display: none; }
-
-:root[data-theme='dark'] .icon-sun { display: inline; }
-
-:root[data-theme='dark'] .icon-moon { display: none; }
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) .icon-sun { display: inline; }
-  :root:not([data-theme='light']) .icon-moon { display: none; }
 }
 
 .hero { text-align: center; }
@@ -199,6 +133,7 @@ code {
 .shot img {
   display: block;
   width: 100%;
+  height: auto;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--card);
@@ -365,7 +300,5 @@ footer a { color: var(--muted); }
   main { padding-top: 60px; }
   .features, .faq-grid, .why { grid-template-columns: 1fr; }
   .glyph { width: 30px; height: 30px; }
-  .controls { top: 12px; right: 12px; }
-  .control { height: 32px; min-width: 34px; padding: 0 10px; }
   .compare th, .compare td { padding: 11px 14px; }
 }
