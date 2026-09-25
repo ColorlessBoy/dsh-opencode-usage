@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>dsh-opencode-usage — OpenCode Go 额度 pill for DeepSeek Harness</title>
+  <meta name="description" content="DeepSeek Harness (dsh) 插件：在 Web 输入框的统计行里显示 OpenCode Go 的 5 小时 / 每周 / 每月剩余额度。" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="style.css" />
+  <meta property="og:title" content="dsh-opencode-usage" />
+  <meta property="og:description" content="OpenCode Go 额度 pill for DeepSeek Harness" />
+  <meta property="og:image" content="screenshot.png" />
+</head>
+<body>
+  <main>
+    <header class="hero">
+      <p class="eyebrow">DeepSeek Harness · dsh bundle</p>
+      <h1>
+        <svg class="glyph" viewBox="0 0 16 16" aria-hidden="true">
+          <rect x="1.5" y="4.5" width="11" height="7" rx="2" />
+          <rect x="13.25" y="6.25" width="1.5" height="3.5" rx="0.75" />
+          <path d="M4 8h3" />
+        </svg>
+        dsh-opencode-usage
+      </h1>
+      <p class="tagline">在额度见底之前，先看见它。</p>
+      <p class="sub">OpenCode Go 的 5 小时滚动 / 每周 / 每月剩余额度，化作 dsh Web 输入框统计行里最安静的一枚 pill——一眼可见，细节点开才有。</p>
+      <div class="actions">
+        <a class="button primary" href="https://github.com/ColorlessBoy/dsh-opencode-usage">GitHub</a>
+        <a class="button" href="#install">安装</a>
+        <a class="button" href="https://github.com/deepseek-ai/deepseek-harness">DeepSeek Harness</a>
+      </div>
+    </header>
+
+    <section class="shot">
+      <img src="screenshot.png" alt="输入框统计行里的 OpenCode Go 额度 pill 与展开的详情面板" />
+    </section>
+
+    <section class="why-section">
+      <h2>为什么选它</h2>
+      <ul class="why">
+        <li><strong>一眼可见</strong>：三档剩余百分比常驻统计行，展开即详情。</li>
+        <li><strong>零配置</strong>：自动跟随 <code>llm-pi-ai</code> 里已配好的 provider，不复制 key、不新增设置页。</li>
+        <li><strong>零构建</strong>：仓库自带可运行的 <code>lib/</code>，<code>dsh plugin add</code> 秒装即用。</li>
+        <li><strong>零打扰</strong>：不加悬浮窗、不接管路由；切到非 Go 模型自动隐身。</li>
+        <li><strong>密钥不出 host</strong>：浏览器只访问同源端点，API key 永不进入页面。</li>
+        <li><strong>克制的同类</strong>：不抢你的工作流，只补上你看不见的那一格电。</li>
+      </ul>
+    </section>
+
+    <section class="features">
+      <article>
+        <h3>按 provider 判定</h3>
+        <p>只有当前模型所属 provider 的 <code>baseURL</code> 指向 OpenCode Zen Go 时才显示；切到其它 provider 自动隐藏。</p>
+      </article>
+      <article>
+        <h3>只谈剩余量</h3>
+        <p>上游接口给的是已用百分比，host 半边归一化成剩余量；chip、详情面板、无障碍名称三处措辞一致。</p>
+      </article>
+      <article>
+        <h3>点击展开</h3>
+        <p>与内置「Token 用量」同一套面板皮肤，逐档列出剩余百分比与重置倒计时，标题给出最紧的一档。</p>
+      </article>
+      <article>
+        <h3>密钥不出 host</h3>
+        <p>浏览器只访问同源 <code>/api/opencode-usage</code>；API key 由 host 侧 credentials 服务按 <code>apiKeyEnv</code> 解析。</p>
+      </article>
+    </section>
+
+    <section class="install" id="install">
+      <h2>安装</h2>
+      <p>作为 bundle 装进 web profile，仓库自带可运行的 <code>lib/</code>，安装不需要构建授权：</p>
+      <div class="code">
+        <pre><code id="cmd">dsh plugin --profile web add github:ColorlessBoy/dsh-opencode-usage</code></pre>
+        <button id="copy" type="button">复制</button>
+      </div>
+      <p class="hint">装好后重启 <code>dsh web</code> 并刷新页面。不启动也能先验证层已组合：<code>dsh --profile web --dump-config</code> 应出现 <code># == dsh-opencode-usage</code>。</p>
+    </section>
+
+    <section class="notes">
+      <h2>取向</h2>
+      <p>不接管 provider 路由、不复制 API key、不新增设置页或常驻悬浮卡：复用既有的 <code>llm-pi-ai</code> 配置与 credentials 凭据，只多一枚安静的 pill。</p>
+    </section>
+  </main>
+
+  <footer>
+    <span>MIT License</span>
+    <span>·</span>
+    <a href="https://github.com/ColorlessBoy/dsh-opencode-usage">源码与 README</a>
+    <span>·</span>
+    <span>非官方社区插件</span>
+  </footer>
+
+  <script>
+    const button = document.getElementById('copy')
+    button.addEventListener('click', async () => {
+      const command = document.getElementById('cmd').textContent
+      try {
+        await navigator.clipboard.writeText(command)
+        button.textContent = '已复制'
+      } catch {
+        button.textContent = '复制失败'
+      }
+      setTimeout(() => { button.textContent = '复制' }, 1500)
+    })
+  </script>
+</body>
+</html>

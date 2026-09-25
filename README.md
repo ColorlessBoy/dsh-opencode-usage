@@ -1,8 +1,16 @@
 # dsh-opencode-usage
 
-[DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) (dsh) 插件：在 Web GUI
-输入框下方的开发者小字里、内置「上下文已用」pill 之后，多显示一枚
-**OpenCode Go 额度** pill。
+[![DeepSeek Harness plugin](https://img.shields.io/badge/DeepSeek%20Harness-plugin-0f9d6e)](https://github.com/deepseek-ai/deepseek-harness)
+[![topic: dsh-plugin](https://img.shields.io/badge/topic-dsh--plugin-0f9d6e)](https://github.com/topics/dsh-plugin)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+
+> **在额度见底之前，先看见它。**
+> OpenCode Go 的 5 小时滚动 / 每周 / 每月剩余额度，化作 dsh Web 输入框统计行里最安静的
+> 一枚 pill——一眼可见，细节点开才有。
+
+[官网](https://colorlessboy.github.io/dsh-opencode-usage/) ·
+[DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) 插件：在输入框下方的
+开发者小字里、内置「上下文已用」pill 之后，多显示一枚 **OpenCode Go 额度** pill。
 
 ![OpenCode Go 额度 pill 与展开的详情面板](docs/screenshot.png)
 
@@ -10,9 +18,14 @@
 10 轮 89 步 · 42 tok/s  │  1.2M · 缓存命中 45%  │  24%  │  🔋 剩余 5h 80% │ 周 84% │ 月 42%
 ```
 
-和同类用量插件的取向不同：它不接管 provider 路由、不复制 API key、不新增设置页或常驻悬浮
-卡，只复用既有的 `llm-pi-ai` 配置与 credentials 凭据，在统计行里多一枚安静的 pill——
-余量一眼可见，细节点开才有。
+## 为什么选它
+
+- **一眼可见** —— 三档剩余百分比常驻统计行，展开即详情；不藏在菜单里。
+- **零配置** —— 自动跟随 `llm-pi-ai` 里已配好的 provider，不复制 key、不新增设置页。
+- **零构建** —— 仓库自带可运行的 `lib/`，`dsh plugin add` 秒装即用。
+- **零打扰** —— 不加悬浮窗、不接管路由；切到非 Go 模型自动隐身，不误报。
+- **密钥不出 host** —— 浏览器只访问同源端点，API key 永不进入页面。
+- **克制的同类** —— 不抢你的工作流，只补上你看不见的那一格电。
 
 ## 特性
 
