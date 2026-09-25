@@ -12,9 +12,12 @@ const PROVIDERS = {
   'opencode-go-http': { baseURL: 'https://opencode.ai/zen/go/v1', apiKeyEnv: 'OPENCODE_GO_API_KEY_3' },
   'opencode-go-malformed': { baseURL: 'https://opencode.ai/zen/go/v1', apiKeyEnv: 'OPENCODE_GO_API_KEY_3' },
   'opencode-go-network': { baseURL: 'https://opencode.ai/zen/go/v1', apiKeyEnv: 'OPENCODE_GO_API_KEY_3' },
+  'opencode-go-no-settings': ZEN,
+  'opencode-go-broken-settings': ZEN,
   'deepseek-official': { baseURL: 'https://api.deepseek.com' },
   'evil-opencode-go': { baseURL: 'https://evil.example/zen/go/v1', apiKeyEnv: 'OPENCODE_GO_API_KEY_3' },
 }
+let settingsMode = 'ok'
 
 let route
 let rejection
@@ -23,7 +26,11 @@ const ctx = {
   effect: (fn, label) => { effects.push(label); fn() },
   webServer: { register: (r) => { route = r; return () => {} } },
   get: (name) => {
-    if (name === 'settings') return { get: (ns) => (ns === 'llm-pi-ai' ? { providers: PROVIDERS } : undefined) }
+    if (name === 'settings') {
+      if (settingsMode === 'absent') return undefined
+      if (settingsMode === 'broken') return { describe: () => { throw new Error('settings projection failed') } }
+      return { describe: () => [{ ns: 'llm-pi-ai', value: { providers: PROVIDERS } }] }
+    }
     if (name === 'credentials') return { resolve: async (ref) => (ref === 'OPENCODE_GO_API_KEY_3' ? { value: 'sk-test' } : undefined) }
     if (name === 'connection') return { requestRejection: () => rejection }
     return undefined
@@ -123,7 +130,20 @@ assert.deepEqual(
   { applicable: true, error: 'network' },
 )
 
-// 8. A rejected browser request is refused before any route work.
+// 8. A missing or unreadable settings projection is not applicable, never an error.
+settingsMode = 'absent'
+assert.deepEqual(
+  (await request('GET', '/api/opencode-usage?provider=opencode-go-no-settings')).body,
+  { applicable: false },
+)
+settingsMode = 'broken'
+assert.deepEqual(
+  (await request('GET', '/api/opencode-usage?provider=opencode-go-broken-settings')).body,
+  { applicable: false },
+)
+settingsMode = 'ok'
+
+// 9. A rejected browser request is refused before any route work.
 rejection = 401
 assert.deepEqual(await request('GET', '/api/opencode-usage?provider=opencode-go-3'), { status: 401, body: 'unauthorized' })
 rejection = 403

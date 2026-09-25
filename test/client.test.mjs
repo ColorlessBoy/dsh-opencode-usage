@@ -1,8 +1,8 @@
 /**
  * Browser-half behaviour check: the bundle registers a factory, mounts the
- * dock entry, reads the provider from the model-selection projection, joins the
- * built-in stats row, renders the three remaining shares, and opens the detail
- * panel.
+ * dock entry, reads the provider from the model-selection projection, renders
+ * the three remaining shares as its own pill beside the built-in stats row,
+ * and opens the detail panel.
  *
  * React, react-dom, and jsdom are resolved from the DSH checkout so this stays
  * dependency-free.
@@ -30,7 +30,6 @@ globalThis.IS_REACT_ACT_ENVIRONMENT = true
 
 /** Minimal primitives face: the real hooks are exercised by their own package. */
 const primitives = {
-  IconAlarmClockOutline16: () => null,
   useAnchoredPosition: () => null,
   useDismissOnOutsidePointer: () => {},
 }
@@ -146,11 +145,11 @@ const settle = async () => {
 await act(async () => { root.render(React.createElement(Harness, { withStatsRow: true })) })
 await settle()
 
-// The chip joins the built-in stats row rather than opening its own line.
+// The chip is its own dock item, a sibling of the built-in stats row.
 const statsRow = container.querySelector(':scope > [data-composer-stats]')
-const chip = statsRow.querySelector('.dou-anchor')
-assert.ok(chip !== null, 'chip is portaled into the stats row')
-assert.equal(container.querySelector('.dou-row'), null, 'no fallback row while the stats row exists')
+const chip = container.querySelector(':scope > .dou-anchor')
+assert.ok(chip !== null, 'chip is its own dock item')
+assert.equal(statsRow.querySelector('.dou-anchor'), null, 'chip is not nested in the built-in stats row')
 assert.equal(statsRow.querySelector('.builtin').textContent, '11 turns 44 steps')
 // The separators are this plugin's own empty 1px rules, not the built-in dot glyph.
 const separators = chip.querySelectorAll('.dou-sep')
@@ -182,8 +181,7 @@ answer = { applicable: false }
 selection = { next: { provider: 'deepseek-official' }, lastUsed: null }
 await act(async () => { root.render(React.createElement(Harness, { withStatsRow: true })) })
 await settle()
-assert.equal(statsRow.querySelector('.dou-anchor'), null)
-assert.equal(container.querySelector('.dou-row'), null)
+assert.equal(container.querySelector('.dou-anchor'), null)
 assert.deepEqual(fetched, ['/api/opencode-usage?provider=deepseek-official'])
 
 // A failing route shows the error copy instead of numbers.
@@ -192,24 +190,24 @@ answer = { applicable: true, error: 'http-429' }
 selection = { next: { provider: 'opencode-go-http' }, lastUsed: null }
 await act(async () => { root.render(React.createElement(Harness, { withStatsRow: true })) })
 await settle()
-const errorChip = statsRow.querySelector('.dou-anchor')
+const errorChip = container.querySelector('.dou-anchor')
 assert.ok(errorChip !== null)
 assert.equal(errorChip.querySelector('.dou-label').textContent, 'Quota unavailable (http-429)')
 assert.equal(errorChip.querySelector('button'), null, 'the error reading is not a dialog trigger')
 
-// Without a stats row the chip falls back to its own centered dock row.
+// The chip renders the same way when no settled step mounted a stats row.
 answer = USAGE
 selection = { next: { provider: 'opencode-go-3' }, lastUsed: null }
 await act(async () => { root.render(React.createElement(Harness, { withStatsRow: false })) })
 await settle()
-assert.ok(container.querySelector('.dou-row .dou-pill') !== null)
+assert.ok(container.querySelector(':scope > .dou-anchor .dou-pill') !== null)
 assert.equal(container.querySelector('[data-composer-stats]'), null)
 
 // The last good reading survives a transient failure.
 answer = { applicable: true, error: 'network' }
 await act(async () => { root.render(React.createElement(Harness, { withStatsRow: false })) })
 await settle()
-assert.equal(container.querySelector('.dou-row .dou-label').textContent, '5h 94%wk 88.5%mo 45% left')
+assert.equal(container.querySelector('.dou-anchor .dou-label').textContent, '5h 94%wk 88.5%mo 45% left')
 
 // The shipped Chinese copy, which is what the zh locale preference renders.
 answer = USAGE
@@ -225,13 +223,12 @@ await act(async () => {
     React.createElement(exports.QuotaChip, { t: zhT, useProjection: () => selection })))
 })
 await settle()
-const zhRow = zhContainer.querySelector(':scope > [data-composer-stats]')
-assert.equal(zhRow.querySelector('.dou-label').textContent, '剩余 5h 94%周 88.5%月 45%')
+assert.equal(zhContainer.querySelector(':scope > .dou-anchor .dou-label').textContent, '剩余 5h 94%周 88.5%月 45%')
 assert.equal(
-  zhRow.querySelector('button').getAttribute('aria-label'),
+  zhContainer.querySelector(':scope > .dou-anchor button').getAttribute('aria-label'),
   'OpenCode Go 额度（剩余）：5 小时滚动 94%，每周 88.5%，每月 45%',
 )
-await act(async () => { zhRow.querySelector('button').dispatchEvent(new dom.window.MouseEvent('click', { bubbles: true })) })
+await act(async () => { zhContainer.querySelector(':scope > .dou-anchor button').dispatchEvent(new dom.window.MouseEvent('click', { bubbles: true })) })
 const zhPanel = dom.window.document.body.querySelector('.dou-panel')
 assert.equal(zhPanel.querySelector('.dou-titleValue').textContent, '每月 剩余 45%')
 assert.deepEqual([...zhPanel.querySelectorAll('dt, dd')].map(node => node.textContent), [

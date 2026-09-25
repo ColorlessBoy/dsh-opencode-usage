@@ -5,7 +5,7 @@
 **OpenCode Go 额度** pill。
 
 ```
-10 轮 89 步 · 42 tok/s  │  1.2M · 缓存命中 45%  │  ⏰ 剩余 5h 80% │ 周 84% │ 月 42%
+10 轮 89 步 · 42 tok/s  │  1.2M · 缓存命中 45%  │  24%  │  🔋 剩余 5h 80% │ 周 84% │ 月 42%
 ```
 
 ## 特性
@@ -83,7 +83,7 @@ dsh-opencode-usage/
 │   └── client.js       # 浏览器半边：模块表 bundle，注册 composer dock 里的 chip
 └── test/
     ├── host.test.mjs   # 路由行为：URL 判定、凭据、归一化、错误码、缓存、鉴权
-    └── client.test.mjs # jsdom + 真实 React：chip、portal 进统计行、详情面板、中英文案
+    └── client.test.mjs # jsdom + 真实 React：chip、dock 同级排布、详情面板、中英文案
 ```
 
 架构上分两半，是因为 API key 只在 host 侧：
@@ -91,16 +91,17 @@ dsh-opencode-usage/
 | 半边 | 职责 |
 |---|---|
 | host `lib/index.js` | 解析 provider 的 `baseURL` / `apiKeyEnv`，带凭据请求上游，归一化为只含剩余量的 JSON，按 provider 缓存（成功 30s、失败 10s），对并发轮询合并为一次上游请求 |
-| browser `lib/client.js` | 从会话的 `modelSelection` 投影读当前 provider，轮询同源端点（15s），把 chip 渲染进内置统计行 |
+| browser `lib/client.js` | 从会话的 `modelSelection` 投影读当前 provider，轮询同源端点（15s），把 chip 渲染成 dock 的独立 pill |
 
-浏览器半边把一个零尺寸锚点留在 dock 里，并用一个只监听 `childList` 的 MutationObserver
-盯住自己父节点：内置统计行存在时，chip 通过 portal 成为那一行的第三个子元素（因此和
-两枚内置 pill 共用同一套 flex 布局、居中与间距）；统计行不在（新会话还没有落定的步）时，
-chip 退化成 dock 里自己的一行居中。
+dock 把自己的内容用 `display: contents` 摊平，所以 chip 是 dock 的 flex item；它用
+`flex order: 1` 排在内置「上下文已用」pill 之后（忽略 DOM 先后），与内置 pill 共用
+同一行的居中、间距和基线。
 
 它用的是**自己的 1px 竖线**分隔符，而不是内置 pill 的 `·` 字形：三个分段挤在一枚标签里，
-竖线加两侧留白比借来的圆点更窄。皮肤其余部分（字号、行高、`--dsw-*` 语义 token、
-面板圆角与阴影）与内置 pill 保持一致。
+竖线加两侧留白比借来的圆点更窄。图标是插件自带的 16px 线稿电池（电量意象），不依赖
+`ui-primitives` 的图标名。皮肤其余部分（字号、行高、`--dsw-*` 语义 token、面板圆角与
+阴影）与内置 pill 保持一致；详情面板底色用菜单色叠加不透明 surface token，整卡不透明，
+不会透出背后的内容。
 
 ## 测试
 
@@ -120,11 +121,12 @@ DSH_CHECKOUT=/path/to/deepseek-harness npm test
 | 事实 | 来源 |
 |---|---|
 | 当前选中的 provider | 会话的 `modelSelection` 投影（`/model` 弹窗写入的同一个值） |
-| provider 的 `baseURL` / `apiKeyEnv` | settings 的 `llm-pi-ai.providers.<route>` |
+| provider 的 `baseURL` / `apiKeyEnv` | settings 服务投影的 `llm-pi-ai` 条目实时值：`settings.describe()` 的 `value.providers.<route>` |
 | API key | credentials 服务解析 `apiKeyEnv` 指向的引用 |
 
 未在 `llm-pi-ai` 中声明的 provider（例如 `deepseek-official` 由另一个适配器族提供）一律
-视为「不适用」并隐藏。
+视为「不适用」并隐藏。route 省略 `baseURL`、靠 pi-ai 内置目录继承端点时，投影里没有该
+字段，同样按「不适用」处理。
 
 ## 开发提示
 
