@@ -271,7 +271,12 @@
       footerUnofficial: 'Unofficial community plugin',
     }
 
-    const chinese = (navigator.language || '').toLowerCase().startsWith('zh')
+    // Any zh entry in the browser's language list keeps the Chinese copy: a
+    // list like en-US,en,zh-CN still belongs to a Chinese-reading user.
+    const languages = navigator.languages !== undefined && navigator.languages.length > 0
+      ? navigator.languages
+      : [navigator.language ?? '']
+    const chinese = languages.some(language => language.toLowerCase().startsWith('zh'))
     if (!chinese) {
       document.documentElement.lang = 'en'
       document.title = EN.title
