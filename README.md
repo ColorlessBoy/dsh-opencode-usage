@@ -9,7 +9,7 @@
 > OpenCode Go 的 5 小时滚动 / 每周 / 每月剩余额度，化作 dsh Web 输入框统计行里最安静的
 > 一枚 pill——一眼可见，细节点开才有。
 
-**官网**（自动跟随浏览器语言，右上角可手动切换并记忆；语言列表含中文即显示中文，否则英文）：<https://colorlessboy.github.io/dsh-opencode-usage/> ·
+**官网**（自动跟随浏览器语言：语言列表含中文即显示中文，否则英文）：<https://colorlessboy.github.io/dsh-opencode-usage/> ·
 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) 插件：在输入框下方的
 开发者小字里、内置「上下文已用」pill 之后，多显示一枚 **OpenCode Go 额度** pill。
 

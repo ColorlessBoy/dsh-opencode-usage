@@ -78,11 +78,6 @@
   </script>
 </head>
 <body>
-  <nav class="lang-switch" aria-label="语言 / Language">
-    <button type="button" data-lang="zh" aria-pressed="true">中文</button>
-    <button type="button" data-lang="en" aria-pressed="false">EN</button>
-  </nav>
-
   <main>
     <header class="hero">
       <p class="eyebrow">DeepSeek Harness · dsh bundle</p>
@@ -276,69 +271,44 @@
       footerUnofficial: 'Unofficial community plugin',
     }
 
-    const STORAGE_KEY = 'dsh-opencode-usage-lang'
-    const nodes = [...document.querySelectorAll('[data-i18n]')]
-    const altNodes = [...document.querySelectorAll('[data-i18n-alt]')]
-    const description = document.querySelector('meta[name="description"]')
-    const copyButton = document.getElementById('copy')
-    const ZH = {}
-    for (const element of nodes) ZH[element.dataset.i18n] = element.innerHTML
-    const ZH_ALT = {}
-    for (const element of altNodes) ZH_ALT[element.dataset.i18nAlt] = element.getAttribute('alt')
-    const ZH_TITLE = document.title
-    const ZH_DESCRIPTION = description === null ? '' : description.getAttribute('content')
-    const ZH_LABELS = { idle: '复制', done: '已复制', fail: '复制失败' }
-    const EN_LABELS = { idle: EN.copyIdle, done: EN.copyDone, fail: EN.copyFail }
-    let copyLabels = ZH_LABELS
-
-    const applyLang = (lang) => {
-      const english = lang === 'en'
-      document.documentElement.lang = english ? 'en' : 'zh-CN'
-      document.title = english ? EN.title : ZH_TITLE
-      if (description !== null) description.setAttribute('content', english ? EN.description : ZH_DESCRIPTION)
-      for (const element of nodes) {
-        const key = element.dataset.i18n
-        const value = english ? (EN[key] ?? ZH[key]) : ZH[key]
-        if (value !== undefined) element.innerHTML = value
-      }
-      for (const element of altNodes) {
-        const key = element.dataset.i18nAlt
-        const value = english ? (EN[key] ?? ZH_ALT[key]) : ZH_ALT[key]
-        if (value !== undefined) element.setAttribute('alt', value)
-      }
-      copyLabels = english ? EN_LABELS : ZH_LABELS
-      copyButton.textContent = copyLabels.idle
-      for (const control of document.querySelectorAll('.lang-switch button')) {
-        control.setAttribute('aria-pressed', String(control.dataset.lang === lang))
-      }
-    }
-
-    // A stored choice wins; otherwise any zh entry in the browser's language
-    // list keeps Chinese (en-US,en,zh-CN still belongs to a zh reader).
-    const stored = (() => { try { return localStorage.getItem(STORAGE_KEY) } catch { return null } })()
+    // Any zh entry in the browser's language list keeps the Chinese copy above
+    // (en-US,en,zh-CN still belongs to a zh reader); every other language
+    // swaps to English. No toggle, no stored preference.
     const languages = navigator.languages !== undefined && navigator.languages.length > 0
       ? navigator.languages
       : [navigator.language ?? '']
-    const detected = languages.some(language => language.toLowerCase().startsWith('zh')) ? 'zh' : 'en'
-    applyLang(stored === 'zh' || stored === 'en' ? stored : detected)
+    const chinese = languages.some(language => language.toLowerCase().startsWith('zh'))
 
-    for (const control of document.querySelectorAll('.lang-switch button')) {
-      control.addEventListener('click', () => {
-        const lang = control.dataset.lang
-        try { localStorage.setItem(STORAGE_KEY, lang) } catch { /* storage disabled */ }
-        applyLang(lang)
-      })
+    const copyButton = document.getElementById('copy')
+    const labels = chinese
+      ? { idle: '复制', done: '已复制', fail: '复制失败' }
+      : { idle: EN.copyIdle, done: EN.copyDone, fail: EN.copyFail }
+
+    if (!chinese) {
+      document.documentElement.lang = 'en'
+      document.title = EN.title
+      const description = document.querySelector('meta[name="description"]')
+      if (description !== null) description.setAttribute('content', EN.description)
+      for (const element of document.querySelectorAll('[data-i18n]')) {
+        const key = element.dataset.i18n
+        if (EN[key] !== undefined) element.innerHTML = EN[key]
+      }
+      for (const element of document.querySelectorAll('[data-i18n-alt]')) {
+        const key = element.dataset.i18nAlt
+        if (EN[key] !== undefined) element.setAttribute('alt', EN[key])
+      }
+      copyButton.textContent = labels.idle
     }
 
     copyButton.addEventListener('click', async () => {
       const command = document.getElementById('cmd').textContent
       try {
         await navigator.clipboard.writeText(command)
-        copyButton.textContent = copyLabels.done
+        copyButton.textContent = labels.done
       } catch {
-        copyButton.textContent = copyLabels.fail
+        copyButton.textContent = labels.fail
       }
-      setTimeout(() => { copyButton.textContent = copyLabels.idle }, 1500)
+      setTimeout(() => { copyButton.textContent = labels.idle }, 1500)
     })
   </script>
 </body>
